@@ -2,7 +2,6 @@
 import ip from 'ip';
 import app, { server } from '../app';
 
-require('dotenv').config();
 const debug = require('debug')('librarian-server:server');
 
 const port = normalizePort(process.env.PORT || '3002');

@@ -1,21 +1,15 @@
-import fetch from 'node-fetch';
 import emitter from '../events/native-event';
 
-require('dotenv').config();
-
-const { BASE_URL } = process.env;
-
 export default (socket) => {
-  emitter.on('cardReceived', async (id) => {
-    console.log(new Date());
+  emitter.on('cardReceived', async (rfid) => {
+    console.log('-->Connection:', new Date());
     try {
-      const response = await fetch(`${BASE_URL}/members/rfidTag/${id}`);
-      const member = await response.json();
-      console.log('-->Received:', id);
-      if (member) {
-        socket.emit('studentReceived', member);
-        return;
-      }
+      console.log('-->Received:', rfid);
+
+      socket.emit('studentReceived', rfid);
+
+      console.log('-->Done<--');
+      console.log('----------');
     } catch (error) {
       console.log(error);
     }
