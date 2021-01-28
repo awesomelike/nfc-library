@@ -1,25 +1,22 @@
-// import { EventEmitter } from '../events/Event';
-import students from '../data/students.json';
-import books from '../data/books.json';
-import axios from 'axios';
-import emitter from '../events/native-event';
 import fetch from 'node-fetch';
+import emitter from '../events/native-event';
+
 require('dotenv').config();
 
 const { BASE_URL } = process.env;
 
 export default (socket) => {
   emitter.on('cardReceived', async (id) => {
-    console.log('event');
+    console.log(new Date());
     try {
       const response = await fetch(`${BASE_URL}/members/rfidTag/${id}`);
       const member = await response.json();
-      console.log('received!');
+      console.log('-->Received:', id);
       if (member) {
         socket.emit('studentReceived', member);
         return;
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   });

@@ -1,13 +1,10 @@
 import smartcard from 'smartcard';
-// import { EventEmitter } from '../events/Event';
 import emitter from '../events/native-event';
-import axios from 'axios';
 
 const { Devices } = smartcard;
 const devices = new Devices();
 
 require('dotenv').config();
-const { BASE_URL } = process.env;
 
 devices.on('device-activated', (event) => {
   const { device } = event;
